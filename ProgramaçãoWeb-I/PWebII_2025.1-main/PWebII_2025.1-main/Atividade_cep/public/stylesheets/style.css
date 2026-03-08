@@ -1,0 +1,13 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+label {
+  color: #00B7FF;
+}
+
+body {
+  background-image: url("../images/lebaron.jpg");
+  background-size: cover;
+}

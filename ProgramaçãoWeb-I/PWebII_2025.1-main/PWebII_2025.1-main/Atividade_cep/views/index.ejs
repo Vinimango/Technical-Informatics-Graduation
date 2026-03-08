@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Endereço</title>
+    <style>
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        body {
+  background-image: url("../images/lebaron.jpg");
+  background-size: cover;
+  color: #45a049;
+            }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .alert {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Formulário de Endereço</h2>
+        <form id="address-form">
+          
+            <label for="cep">CEP:</label>
+            <input type="text" id="cep" name="cep" maxlength="8" required>
+            <div class="alert" id="cep-alert"></div>
+
+            <label for="Nome">Nome:</label>
+            <input type="text" id="nome" name="nome" maxlength="12" required>
+            <label for="matricula">Matrícula:</label>
+            <input type="text" id="matricula" name="matricula" maxlength="14" required>
+
+            <label for="logradouro">Logradouro:</label>
+            <input type="text" id="logradouro" name="logradouro" required>
+            <div class="alert" id="logradouro-alert"></div>
+
+            <label for="bairro">Bairro:</label>
+            <input type="text" id="bairro" name="bairro" required>
+            <div class="alert" id="bairro-alert"></div>
+
+            <label for="cidade">Cidade:</label>
+            <input type="text" id="cidade" name="cidade" required>
+            <div class="alert" id="cidade-alert"></div>
+
+            <label for="uf">UF:</label>
+            <input type="text" id="uf" name="uf" required maxlength="2">
+            <div class="alert" id="uf-alert"></div>
+
+            <input type="submit" value="OK">
+        </form>
+    </div>
+
+    <script>
+        // Função para consultar o ViaCEP
+        function consultarCEP(cep) {
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.erro) {
+                        alert('CEP não encontrado!');
+                    } else {
+                        // Preencher os campos automaticamente
+                        document.getElementById('logradouro').value = data.logradouro;
+                        document.getElementById('bairro').value = data.bairro;
+                        document.getElementById('cidade').value = data.localidade;
+                        document.getElementById('uf').value = data.uf;
+                    }
+                })
+                .catch(error => {
+                    alert('Erro ao buscar o CEP');
+                });
+        }
+
+        // Evento para buscar o CEP automaticamente quando o campo for alterado
+        document.getElementById('cep').addEventListener('blur', function() {
+            const cep = this.value.replace(/\D/g, ''); // Remover tudo o que não for número
+            if (cep.length === 8) {
+                consultarCEP(cep);
+            } else {
+                alert('CEP inválido. Certifique-se de ter digitado corretamente.');
+            }
+        });
+
+        // Validação do formulário
+        document.getElementById('address-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio do formulário para validação
+
+            // Resetando os alertas
+            resetAlerts();
+
+            // Validar campos
+            const cep = document.getElementById('cep').value;
+            const logradouro = document.getElementById('logradouro').value;
+            const bairro = document.getElementById('bairro').value;
+            const cidade = document.getElementById('cidade').value;
+            const uf = document.getElementById('uf').value;
+
+            let isValid = true;
+
+            if (cep.length < 8) {
+                showAlert('cep', 'CEP deve ter 8 caracteres');
+                isValid = false;
+            }
+            if (logradouro.length < 3) {
+                showAlert('logradouro', 'Logradouro deve ter pelo menos 3 caracteres');
+                isValid = false;
+            }
+            if (bairro.length < 3) {
+                showAlert('bairro', 'Bairro deve ter pelo menos 3 caracteres');
+                isValid = false;
+            }
+            if (cidade.length < 3) {
+                showAlert('cidade', 'Cidade deve ter pelo menos 3 caracteres');
+                isValid = false;
+            }
+            if (uf.length < 2) {
+                showAlert('uf', 'UF deve ter 2 caracteres');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                return;
+            }
+
+            alert('Formulário enviado com sucesso!');
+        });
+
+        // Resetar alertas de validação
+        function resetAlerts() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                alert.textContent = '';
+            });
+        }
+
+        // Exibir alertas de validação
+        function showAlert(field, message) {
+            const alertElement = document.getElementById(`${field}-alert`);
+            alertElement.textContent = message;
+        }
+    </script>
+
+</body>
+</html>
