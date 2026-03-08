@@ -1,0 +1,18 @@
+.austrumaureus {
+  width: 325px !important;
+  height: 400px !important;
+  object-fit: cover;
+}
+
+.carmin {
+  height: 400px !important;
+}
+
+#videoHome {
+  width: 100vw;
+  height: auto; /* Mantém a proporção do vídeo */
+  display: block; /* Evita espaçamento extra abaixo do vídeo */
+  /* position: absolute; */
+  left: 0 !important;
+  top: 0;
+}
