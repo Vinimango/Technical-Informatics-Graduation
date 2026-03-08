@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcular Desconto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 300px;
+            margin: auto;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Calcular Desconto</h1>
+    
+    <button id="discountButton">Desconto de 10%</button>
+
+    <p>Clique no botão acima para iniciar.</p>
+</div>
+
+<script type="text/javascript">
+    document.getElementById('discountButton').addEventListener('click', function() {
+        var price = prompt("Digite o preço original:");
+        var discountPrice = price * 0.9;
+        alert("O preço com desconto é R$" + discountPrice.toFixed(2) + ".");
+    });
+</script>
+
+</body>
+</html>

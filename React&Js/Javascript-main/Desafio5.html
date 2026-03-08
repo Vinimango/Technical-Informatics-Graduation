@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Medidas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 300px;
+            margin: auto;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Conversor de Medidas</h1>
+    
+    <button id="converterButton">Converter</button>
+
+    <p>Clique no botão acima para iniciar.</p>
+</div>
+
+<script type="text/javascript">
+    document.getElementById('converterButton').addEventListener('click', function() {
+        var num = prompt("Digite um número:");
+        var km = num / 1000;
+        var hm = num / 100;
+        var dam = num / 10;
+        var m = num;
+        var dm = num * 10;
+        var cm = num * 100;
+        var mm = num * 1000;
+        alert(num + " metros equivale a " + km + " km, " + hm + " hm, " + dam + " dam, " + m + " m, " + dm + " dm, " + cm + " cm e " + mm + " mm.");
+    });
+</script>
+
+</body>
+</html>

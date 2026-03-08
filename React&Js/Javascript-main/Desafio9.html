@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Reajuste salarial</title>
+</head>
+<body>
+    <button id="reajustarSalario">Reajustar Salário</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('#reajustarSalario').addEventListener('click', function() {
+                const nome = prompt("Qual é o nome do funcionário?");
+                const salario = parseFloat(prompt(`Qual é o salário de ${nome}?`));
+                const aumento = parseFloat(prompt("Qual a porcentagem do aumento salarial?"));
+
+                const novoSalario = salario + (salario * (aumento / 100));
+
+                const resultado = document.createElement('p');
+                resultado.textContent = `${nome} ganhava R$${salario.toFixed(2)} por mês. Com um aumento de ${aumento}%, passará a ganhar R$${novoSalario.toFixed(2)} por mês.`;
+                document.body.appendChild(resultado);
+            });
+        });
+    </script>
+</body>
+</html>

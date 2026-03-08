@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Preço mudou</title>
+</head>
+<body>
+    <h1>Preço mudou</h1>
+    <button id="verificar">Verificar</button>
+    <p>Clique no botão acima para analisar a mudança de preço.</p>
+
+    <script>
+        document.querySelector('#verificar').addEventListener('click', function() {
+            const precoAnterior = parseFloat(prompt("Qual era o preço anterior do produto?"));
+            const precoAtual = parseFloat(prompt("Qual é o preço atual do produto?"));
+
+            const diferenca = precoAtual - precoAnterior;
+            const porcentagem = (diferenca / precoAnterior) * 100;
+
+            const resultado = document.createElement('p');
+            resultado.textContent = `O preço anterior era R$${precoAnterior.toFixed(2)}. O preço atual é R$${precoAtual.toFixed(2)}.`;
+
+            if (diferenca > 0) {
+                resultado.textContent += ` O preço aumentou R$${diferenca.toFixed(2)} (${porcentagem.toFixed(2)}%).`;
+            } else if (diferenca < 0) {
+                resultado.textContent += ` O preço diminuiu R$${Math.abs(diferenca).toFixed(2)} (${Math.abs(porcentagem).toFixed(2)}%).`;
+            } else {
+                resultado.textContent += ` O preço não mudou.`;
+            }
+
+            document.body.appendChild(resultado);
+        });
+    </script>
+</body>
+</html>
